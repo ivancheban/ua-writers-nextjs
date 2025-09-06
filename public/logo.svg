@@ -1,0 +1,24 @@
+<svg width="280" height="60" viewBox="0 0 280 60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .shield-blue { fill: #005BBB; } /* Ukrainian Blue */
+      .shield-yellow { fill: #FFD700; } /* Ukrainian Yellow */
+      .text-light { fill: #FFFFFF; }
+      .text-dark { fill: #2c3e50; } /* Dark grey for professionalism */
+      .main-text { font-family: 'Arial', 'Helvetica', sans-serif; font-weight: bold; }
+      .sub-text { font-family: 'Arial', 'Helvetica', sans-serif; }
+    </style>
+  </defs>
+
+  <!-- Shield Element -->
+  <g transform="translate(5,5)">
+    <path d="M0 0 H40 V20 L20 30 L0 20 Z" class="shield-blue" />
+    <path d="M0 20 H40 V30 L20 40 L0 30 Z" class="shield-yellow" />
+    <text x="20" y="26" class="text-light main-text" font-size="18" text-anchor="middle">UA</text>
+  </g>
+
+  <!-- Text: Writers Space -->
+  <text x="65" y="28" class="text-dark main-text" font-size="20">Writers</text>
+  <text x="65" y="48" class="text-dark sub-text" font-size="18">Space</text>
+
+</svg>
