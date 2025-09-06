@@ -9,11 +9,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'background': '#f8f9fa',
-        'foreground': '#212529',
-        'primary': '#007bff',
-        'card': '#ffffff',
-        'muted': '#6c757d',
+        // Translated from your :root variables
+        'background': '#FFFFFF',
+        'content-bg': '#FFFFFF',
+        'text-primary': '#1A202C',
+        'text-secondary': '#718096',
+        'border-color': '#E2E8F0',
+        'accent': '#2D3748',
+        'accent-orange': '#DE6209',
+      },
+      fontFamily: {
+        // Ensure Inter font is used
+        sans: ['Inter', 'sans-serif'],
       },
     },
   },

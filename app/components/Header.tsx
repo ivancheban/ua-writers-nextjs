@@ -1,17 +1,22 @@
 import Link from 'next/link';
-// We are removing the 'Image' import
-import Logo from './Logo'; // And importing our new Logo component
-import LanguageSwitcher from './LanguageSwitcher';
+import LanguageSwitcher from '@/app/components/LanguageSwitcher';
 
 export default function Header({ lang }: { lang: string }) {
+  // REMOVED: "sticky top-0 z-10" from the className
   return (
-    <header className="bg-card shadow-sm sticky top-0 z-10">
+    <header className="bg-card shadow-sm">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto flex justify-between items-center py-3">
           <Link href={`/${lang}`} className="flex items-center space-x-3">
-            {/* We replace <Image ... /> with our new <Logo /> component */}
-            <Logo className="w-10 h-10" />
-            <span className="hidden sm:inline font-bold text-lg text-primary">
+            <img 
+              src="/logo.svg" 
+              alt="UA Writers' Space Logo" 
+              // Using the exact className you provided
+              className="w-186 h-10"
+            />
+            <span 
+              className="hidden sm:inline font-bold text-primary text-xl"
+            >
               UA Writers' Space
             </span>
           </Link>

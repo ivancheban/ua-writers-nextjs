@@ -8,9 +8,6 @@ export const metadata = {
   description: 'A blog for Ukrainian tech writers.',
 }
 
-// NOTE: The 'lang' parameter is not directly available here,
-// but the nested layout will be rendered within this structure.
-// We set a default lang, and the browser will prioritize the nested info.
 export default function RootLayout({
   children,
 }: {

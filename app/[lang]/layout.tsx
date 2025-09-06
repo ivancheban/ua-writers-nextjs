@@ -8,7 +8,6 @@ export default function LangLayout({
   children: React.ReactNode
   params: { lang: string }
 }) {
-  // This component now returns the page structure *without* html/body tags.
   return (
     <div className="flex flex-col min-h-screen">
       <Header lang={lang} />

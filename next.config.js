@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // The i18n block has been removed.
-  // We can add other configurations here in the future if needed.
+  // We leave this empty for now.
+  // The i18n block has been removed to prevent conflicts with the App Router.
 };
 
 module.exports = nextConfig;

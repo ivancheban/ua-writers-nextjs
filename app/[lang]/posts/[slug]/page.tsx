@@ -44,7 +44,8 @@ export default async function Post({ params }: { params: { lang: string, slug: s
       </div>
       <h1 className="text-3xl sm:text-4xl font-extrabold text-primary mb-3">{postData.title}</h1>
       <div className="mt-4 mb-8 pb-4 border-b border-gray-200 flex items-center">
-        <Image src={postData.authorImage} alt={postData.author} width={40} height={40} className="rounded-full mr-3" />
+        {/* ADDED w-10 h-10 and object-cover to prevent deformation */}
+        <Image src={postData.authorImage} alt={postData.author} width={40} height={40} className="rounded-full mr-3 w-10 h-10 object-cover" />
         <div>
           <p className="font-semibold text-foreground">{postData.author}</p>
           <p className="text-sm text-muted">{postData.date}</p>

@@ -1,29 +1,29 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
-const locales = ['en', 'uk'];
-const defaultLocale = 'en';
+const locales = ['en', 'uk']
 
-// This function will run on every request
 export function middleware(request: NextRequest) {
-  // Check if the URL pathname is missing a language prefix (e.g., /en or /uk)
-  const pathname = request.nextUrl.pathname;
-  const pathnameIsMissingLocale = locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-  );
+  const { pathname } = request.nextUrl
 
-  // If the language prefix is missing, redirect to the default language (English)
-  if (pathnameIsMissingLocale) {
-    return NextResponse.redirect(
-      new URL(`/${defaultLocale}${pathname}`, request.url)
-    );
+  // Check if the path already has a language prefix
+  const pathnameHasLocale = locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  )
+
+  if (pathnameHasLocale) {
+    return // Do nothing if the language is already in the URL
   }
+
+  // If no language is present, redirect to the default language ('en')
+  request.nextUrl.pathname = `/en${pathname}`
+  return NextResponse.redirect(request.nextUrl)
 }
 
-// This configures the middleware to run on all paths except for specific Next.js/API/static files.
 export const config = {
+  // This is the crucial part: it tells the middleware to run on page requests
+  // but to SKIP any request that looks like a file (e.g., has a dot in it).
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)'
   ],
-};
-
+}
