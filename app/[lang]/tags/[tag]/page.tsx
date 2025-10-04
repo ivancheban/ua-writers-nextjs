@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export async function generateStaticParams() {
   const tags = getAllTags('en').concat(getAllTags('uk')); // Combine tags from both languages
-  const uniqueTags = [...new Set(tags)]; // Ensure unique tags
+  const uniqueTags = Array.from(new Set(tags)); // Ensure unique tags
   return uniqueTags.map(tag => ({
     tag: tag,
   }));
