@@ -1,7 +1,7 @@
 {
   "/[lang]/page": "app/[lang]/page.js",
+  "/[lang]/posts/[slug]/page": "app/[lang]/posts/[slug]/page.js",
   "/[lang]/about/page": "app/[lang]/about/page.js",
   "/[lang]/tags/[tag]/page": "app/[lang]/tags/[tag]/page.js",
-  "/[lang]/posts/[slug]/page": "app/[lang]/posts/[slug]/page.js",
   "/[lang]/contribute/page": "app/[lang]/contribute/page.js"
 }

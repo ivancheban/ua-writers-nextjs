@@ -10,6 +10,13 @@ export default function Home({ params: { lang } }: { params: { lang: string }}) 
     uk: { latestArticles: 'Останні статті' }
   }[lang];
 
+  if (!dict) {
+    // Handle the case where the language is not supported
+    // This could be a redirect or a custom 404 page
+    // For now, we'll just return null to prevent a crash
+    return null;
+  }
+
   return (
     <section>
       <h1 className="text-4xl font-extrabold text-accent-orange mb-8">
