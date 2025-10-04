@@ -51,10 +51,12 @@ export default async function Post({ params }: { params: { lang: string, slug: s
           <p className="text-sm text-muted">{postData.date}</p>
         </div>
       </div>
-      <div
-        className="prose prose-lg max-w-none"
-        dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
-      />
+      {postData.contentHtml && (
+        <div
+          className="prose prose-lg max-w-none"
+          dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
+        />
+      )}
     </article>
   );
 }
