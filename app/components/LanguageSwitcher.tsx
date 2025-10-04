@@ -16,14 +16,30 @@ export default function LanguageSwitcher({ lang }: { lang: string }) {
   const otherLang = lang === 'en' ? 'uk' : 'en'
 
   return (
-    <div className="text-sm font-semibold">
-      <span className={lang === 'en' ? 'text-primary' : 'text-muted'}>EN</span>
-      <span className="mx-1 text-muted">/</span>
-      <Link 
-        href={`/${otherLang}${pathWithoutLang}`}
-        className={lang === 'uk' ? 'text-primary hover:opacity-80' : 'text-muted hover:text-primary'}>
+    <div className="flex items-center space-x-2 text-sm font-semibold">
+      <Link
+        href={`/en${pathWithoutLang}`}
+        className={`transition-colors ${
+          lang === 'en'
+            ? 'text-primary pointer-events-none'
+            : 'text-secondary hover:text-primary'
+        }`}
+        aria-current={lang === 'en' ? 'page' : undefined}
+      >
+        EN
+      </Link>
+      <span className="text-secondary">/</span>
+      <Link
+        href={`/uk${pathWithoutLang}`}
+        className={`transition-colors ${
+          lang === 'uk'
+            ? 'text-primary pointer-events-none'
+            : 'text-secondary hover:text-primary'
+        }`}
+        aria-current={lang === 'uk' ? 'page' : undefined}
+      >
         UK
       </Link>
     </div>
-  )
+  );
 }

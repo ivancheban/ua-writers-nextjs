@@ -12,6 +12,7 @@ const config: Config = {
         // Translated from your :root variables
         'background': '#FFFFFF',
         'content-bg': '#FFFFFF',
+        'primary': '#DE6209', // Added primary color
         'text-primary': '#1A202C',
         'text-secondary': '#718096',
         'border-color': '#E2E8F0',
