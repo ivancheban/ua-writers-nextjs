@@ -2,6 +2,7 @@
 title: 'Docs-as-сode methodology and its advantages'
 author: 'Vadym Sachenko'
 authorImage: '/images/vadym-sachenko.jpg'
+excerpt: 'In this article, I want to explain what Docs-as-Code is and its importance, and also compare it to a traditional documentation process.'
 image: '/images/docs-as-code-cover.jpg'
 tags: ['Tech Writing', 'Docs-as-Code']
 date: '2023-11-20'
