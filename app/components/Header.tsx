@@ -5,10 +5,15 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import LanguageSwitcher from './LanguageSwitcher';
 
-const Header = () => {
+interface HeaderProps {
+  lang?: string;
+}
+
+const Header = ({ lang: langProp }: HeaderProps) => {
   const params = useParams();
   // Safely get the language, defaulting to 'en' if not found
-  const lang = (params?.lang as string) || 'en';
+  // Use the prop if provided, otherwise fall back to params
+  const lang = langProp || (params?.lang as string) || 'en';
 
   const menuItems = {
     en: [
