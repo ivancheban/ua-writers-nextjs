@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms Helper</title>
+</head>
+<body>
+    <!-- 
+      This file exists purely so Netlify's build bots can detect the forms 
+      used in the React application. It is not displayed to users.
+    -->
+
+    <form name="contribute" netlify netlify-honeypot="bot-field" hidden>
+        <input type="hidden" name="form-name" value="contribute" />
+        <input type="text" name="bot-field" />
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="text" name="topic" />
+        <textarea name="message"></textarea>
+    </form>
+
+</body>
+</html>
