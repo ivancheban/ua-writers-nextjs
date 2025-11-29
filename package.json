@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
+    "lunr": "^2.3.9",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
+    "@types/lunr": "^2.3.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

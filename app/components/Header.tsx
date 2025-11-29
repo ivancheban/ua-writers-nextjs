@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import LanguageSwitcher from './LanguageSwitcher';
+import Search from './Search';
 
 interface HeaderProps {
   lang?: string;
@@ -37,14 +38,19 @@ const Header = ({ lang: langProp }: HeaderProps) => {
           
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link href={`/${lang}`} className="flex items-center">
-              <Image
-                src="/logo.svg"
-                alt="UA Writers' Space Logo"
-                width={187}
-                height={40}
-                className="w-[187px] h-[40px]"
-              />
+            <Link href={`/${lang}`} className="flex items-center space-x-2 group">
+              <div className="relative w-8 h-8 transition-transform group-hover:scale-110 duration-200">
+                <Image
+                  src="/logo.svg"
+                  alt="UA Writers Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+              <span className="font-bold text-xl tracking-tight text-text-primary group-hover:text-primary transition-colors duration-200">
+                UA Writers
+              </span>
             </Link>
           </div>
 
@@ -60,13 +66,15 @@ const Header = ({ lang: langProp }: HeaderProps) => {
               </Link>
             ))}
             
-            <div className="border-l border-border-color pl-6 ml-2">
+            <div className="flex items-center border-l border-border-color pl-6 ml-2 space-x-4">
+              <Search />
               <LanguageSwitcher lang={lang} />
             </div>
           </nav>
 
           {/* Mobile Menu Button Placeholder */}
           <div className="md:hidden flex items-center space-x-4">
+            <Search />
             <LanguageSwitcher lang={lang} />
             <button className="text-text-secondary hover:text-primary p-2">
               <span className="sr-only">Open menu</span>
