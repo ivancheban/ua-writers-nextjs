@@ -2,8 +2,52 @@
 
 import { useState } from 'react';
 
-export default function Contribute() {
+export default function Contribute({ params: { lang } }: { params: { lang: string } }) {
   const [status, setStatus] = useState<string | null>(null);
+  
+  // Content dictionaries
+  const content = {
+    en: {
+      title: "Contribute",
+      intro: "We accept original articles on technical writing, UX writing, API documentation, and related tools. Share your expertise with the Ukrainian community!",
+      successTitle: "Thank you!",
+      successMessage: "We have received your submission and will be in touch shortly.",
+      error: "Something went wrong. Please try again later.",
+      labels: {
+        name: "Your Name",
+        namePlaceholder: "Ivan Franko",
+        email: "Email Address",
+        emailPlaceholder: "ivan@example.com",
+        topic: "Article Topic / Title",
+        topicPlaceholder: "e.g., Getting Started with Docs-as-Code",
+        message: "Short Description or Link to Draft",
+        messagePlaceholder: "Tell us briefly about your article or paste a link to a Google Doc/Gist...",
+        submit: "Send Proposal",
+        botLabel: "Don’t fill this out if you're human:"
+      }
+    },
+    uk: {
+      title: "Запропонуйте статтю",
+      intro: "Маєте ідею для статті? Ми будемо раді її почути! Заповніть форму нижче, щоб зв'язатися з нами.",
+      successTitle: "Дякуємо!",
+      successMessage: "Ми отримали вашу пропозицію і скоро зв'яжемося з вами.",
+      error: "Щось пішло не так. Будь ласка, спробуйте пізніше.",
+      labels: {
+        name: "Ваше ім'я",
+        namePlaceholder: "Іван Франко",
+        email: "Електронна пошта",
+        emailPlaceholder: "ivan@example.com",
+        topic: "Тема статті / Заголовок",
+        topicPlaceholder: "напр., Початок роботи з Docs-as-Code",
+        message: "Короткий опис або посилання на матеріал",
+        messagePlaceholder: "Розкажіть коротко про вашу статтю або вставте посилання на Google Doc/Gist...",
+        submit: "Надіслати пропозицію",
+        botLabel: "Не заповнюйте це, якщо ви людина:"
+      }
+    }
+  };
+
+  const t = lang === 'uk' ? content.uk : content.en;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -11,7 +55,6 @@ export default function Contribute() {
     const formData = new FormData(form);
 
     try {
-      // We submit to /__forms.html to bypass Next.js middleware/SSR and hit Netlify's form handler directly
       await fetch('/__forms.html', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -27,21 +70,18 @@ export default function Contribute() {
   return (
     <section className="max-w-3xl mx-auto py-12 px-4">
       <h1 className="text-4xl font-extrabold mb-8 text-text-primary border-b border-border-color pb-4">
-        Contribute
+        {t.title}
       </h1>
 
       <div className="prose prose-lg max-w-none text-text-secondary mb-8">
-        <p>
-          We accept original articles on technical writing, UX writing, API documentation, and related tools.
-          Share your expertise with the Ukrainian community!
-        </p>
+        <p>{t.intro}</p>
       </div>
 
       <div className="bg-card p-8 rounded-xl shadow-sm border border-border-color">
         {status === 'success' ? (
           <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-            <strong className="font-bold">Thank you! </strong>
-            <span className="block sm:inline">We have received your submission and will be in touch shortly.</span>
+            <strong className="font-bold">{t.successTitle} </strong>
+            <span className="block sm:inline">{t.successMessage}</span>
           </div>
         ) : (
           <form
@@ -52,17 +92,16 @@ export default function Contribute() {
             onSubmit={handleSubmit}
             className="space-y-6"
           >
-            {/* Hidden fields for Netlify Forms */}
             <input type="hidden" name="form-name" value="contribute" />
             <div className="hidden">
               <label>
-                Don’t fill this out if you're human: <input name="bot-field" />
+                {t.labels.botLabel} <input name="bot-field" />
               </label>
             </div>
 
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-text-primary mb-2">
-                Your Name
+                {t.labels.name}
               </label>
               <input
                 type="text"
@@ -70,13 +109,13 @@ export default function Contribute() {
                 id="name"
                 required
                 className="w-full px-4 py-2 rounded-md border border-border-color bg-background text-text-primary focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
-                placeholder="Ivan Franko"
+                placeholder={t.labels.namePlaceholder}
               />
             </div>
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-text-primary mb-2">
-                Email Address
+                {t.labels.email}
               </label>
               <input
                 type="email"
@@ -84,13 +123,13 @@ export default function Contribute() {
                 id="email"
                 required
                 className="w-full px-4 py-2 rounded-md border border-border-color bg-background text-text-primary focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
-                placeholder="ivan@example.com"
+                placeholder={t.labels.emailPlaceholder}
               />
             </div>
 
             <div>
               <label htmlFor="topic" className="block text-sm font-medium text-text-primary mb-2">
-                Article Topic / Title
+                {t.labels.topic}
               </label>
               <input
                 type="text"
@@ -98,13 +137,13 @@ export default function Contribute() {
                 id="topic"
                 required
                 className="w-full px-4 py-2 rounded-md border border-border-color bg-background text-text-primary focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
-                placeholder="e.g., Getting Started with Docs-as-Code"
+                placeholder={t.labels.topicPlaceholder}
               />
             </div>
 
             <div>
               <label htmlFor="message" className="block text-sm font-medium text-text-primary mb-2">
-                Short Description or Link to Draft
+                {t.labels.message}
               </label>
               <textarea
                 name="message"
@@ -112,7 +151,7 @@ export default function Contribute() {
                 rows={4}
                 required
                 className="w-full px-4 py-2 rounded-md border border-border-color bg-background text-text-primary focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all resize-none"
-                placeholder="Tell us briefly about your article or paste a link to a Google Doc/Gist..."
+                placeholder={t.labels.messagePlaceholder}
               ></textarea>
             </div>
 
@@ -120,12 +159,12 @@ export default function Contribute() {
               type="submit"
               className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-md transition-colors duration-200"
             >
-              Send Proposal
+              {t.labels.submit}
             </button>
 
             {status === 'error' && (
               <p className="text-red-600 text-sm mt-2">
-                Something went wrong. Please try again later.
+                {t.error}
               </p>
             )}
           </form>
