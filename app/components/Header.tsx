@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
@@ -11,6 +12,7 @@ interface HeaderProps {
 }
 
 const Header = ({ lang: langProp }: HeaderProps) => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const params = useParams();
   // Safely get the language, defaulting to 'en' if not found
   // Use the prop if provided, otherwise fall back to params
@@ -67,20 +69,47 @@ const Header = ({ lang: langProp }: HeaderProps) => {
             </div>
           </nav>
 
-          {/* Mobile Menu Button Placeholder */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-2">
             <Search />
             <LanguageSwitcher lang={lang} />
-            <button className="text-text-secondary hover:text-primary p-2">
+            <button
+              className="text-text-secondary hover:text-primary p-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
               <span className="sr-only">Open menu</span>
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+              {isMobileMenuOpen ? (
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
             </button>
           </div>
 
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-background border-t border-border-color">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            {currentMenuItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="block px-3 py-2 rounded-md text-base font-medium text-text-secondary hover:text-primary hover:bg-gray-50"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </header>
   );
 };
