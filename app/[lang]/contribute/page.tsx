@@ -11,7 +11,8 @@ export default function Contribute() {
     const formData = new FormData(form);
 
     try {
-      await fetch('/', {
+      // We submit to /__forms.html to bypass Next.js middleware/SSR and hit Netlify's form handler directly
+      await fetch('/__forms.html', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(formData as any).toString(),
