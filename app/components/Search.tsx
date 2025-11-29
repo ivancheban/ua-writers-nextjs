@@ -75,7 +75,7 @@ const Search = () => {
           value={query}
           onChange={handleSearch}
           placeholder={currentLang === 'uk' ? "Пошук..." : "Search..."}
-          className="w-32 sm:w-48 pl-3 pr-8 py-1.5 text-sm rounded-full border border-border-color bg-background text-text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+          className="w-24 sm:w-48 pl-3 pr-8 py-1.5 text-sm rounded-full border border-border-color bg-background text-text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
           onFocus={() => { if(query) setIsOpen(true); }}
         />
         <div className="absolute right-3 text-text-secondary pointer-events-none">

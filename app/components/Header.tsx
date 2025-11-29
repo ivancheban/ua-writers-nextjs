@@ -44,7 +44,7 @@ const Header = ({ lang: langProp }: HeaderProps) => {
                 alt="UA Writers' Space Logo"
                 width={187}
                 height={40}
-                className="w-[187px] h-[40px]"
+                className="w-[140px] h-[30px] sm:w-[187px] sm:h-[40px]"
               />
             </Link>
           </div>
@@ -68,7 +68,7 @@ const Header = ({ lang: langProp }: HeaderProps) => {
           </nav>
 
           {/* Mobile Menu Button Placeholder */}
-          <div className="md:hidden flex items-center space-x-4">
+          <div className="md:hidden flex items-center space-x-2">
             <Search />
             <LanguageSwitcher lang={lang} />
             <button className="text-text-secondary hover:text-primary p-2">
