@@ -32,25 +32,20 @@ const Header = ({ lang: langProp }: HeaderProps) => {
   const currentMenuItems = lang === 'uk' ? menuItems.uk : menuItems.en;
 
   return (
-    <header className="bg-card border-b border-border-color sticky top-0 z-50 backdrop-blur-sm bg-opacity-90">
+    <header className="bg-background border-b border-border-color sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link href={`/${lang}`} className="flex items-center space-x-2 group">
-              <div className="relative w-8 h-8 transition-transform group-hover:scale-110 duration-200">
-                <Image
-                  src="/logo.svg"
-                  alt="UA Writers Logo"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
-              <span className="font-bold text-xl tracking-tight text-text-primary group-hover:text-primary transition-colors duration-200">
-                UA Writers
-              </span>
+            <Link href={`/${lang}`} className="flex items-center">
+              <Image
+                src="/logo.svg"
+                alt="UA Writers' Space Logo"
+                width={187}
+                height={40}
+                className="w-[187px] h-[40px]"
+              />
             </Link>
           </div>
 

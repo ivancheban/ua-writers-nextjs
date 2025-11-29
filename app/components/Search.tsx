@@ -3,50 +3,30 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
-import lunr from 'lunr';
 
 interface SearchResult {
   id: string;
   title: string;
   lang: string;
   excerpt?: string;
+  searchText?: string;
 }
 
 const Search = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [index, setIndex] = useState<lunr.Index | null>(null);
   const [posts, setPosts] = useState<SearchResult[]>([]);
   const searchRef = useRef<HTMLDivElement>(null);
   const params = useParams();
   const currentLang = (params?.lang as string) || 'en';
 
-  // Load the search index on mount
+  // Load the posts on mount
   useEffect(() => {
     const initSearch = async () => {
       const res = await fetch('/api/search');
       const data = await res.json();
       setPosts(data);
-
-      const lunrIndex = lunr(function () {
-        this.field('title', { boost: 10 });
-        this.field('excerpt');
-        this.field('searchText');
-        this.ref('id');
-
-        data.forEach((doc: any) => {
-          this.add({
-            id: doc.id,
-            title: doc.title,
-            excerpt: doc.excerpt,
-            searchText: doc.searchText,
-            lang: doc.lang // We index lang to potentially filter, though we handle it in UI
-          });
-        });
-      });
-
-      setIndex(lunrIndex);
     };
 
     initSearch();
@@ -67,14 +47,17 @@ const Search = () => {
     const q = e.target.value;
     setQuery(q);
 
-    if (q.length > 1 && index) {
+    if (q.length > 1) {
       setIsOpen(true);
-      // Search and filter by current language relevance (optional, or show all)
-      const searchResults = index.search(`${q}*`);
       
-      const hits = searchResults
-        .map((result) => posts.find((post) => post.id === result.ref))
-        .filter((post): post is SearchResult => post !== undefined && post.lang === currentLang)
+      const lowerQuery = q.toLowerCase();
+      
+      const hits = posts
+        .filter((post) => {
+          // Removed language filter to allow searching across all languages
+          // Check if query exists in searchText (which includes title, excerpt, tags, content)
+          return post.searchText?.includes(lowerQuery);
+        })
         .slice(0, 5); // Limit to 5 results
 
       setResults(hits);
@@ -112,7 +95,13 @@ const Search = () => {
                   className="block px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
-                  <h4 className="text-sm font-medium text-text-primary truncate">{result.title}</h4>
+                  <div className="flex justify-between items-start">
+                    <h4 className="text-sm font-medium text-text-primary truncate flex-1">{result.title}</h4>
+                    {/* Show language badge */}
+                    <span className="ml-2 text-[10px] uppercase font-bold text-text-secondary bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded">
+                      {result.lang}
+                    </span>
+                  </div>
                   {result.excerpt && (
                     <p className="text-xs text-text-secondary truncate mt-1">{result.excerpt}</p>
                   )}
